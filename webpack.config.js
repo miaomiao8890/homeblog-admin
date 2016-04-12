@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'eval',
   entry: [
     'webpack-hot-middleware/client',
-    './public/app/index'
+    './src/app/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -31,14 +31,15 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
-      include: path.join(__dirname, 'public/app')
-    }, {
-      test: /\.scss$/,
-      loader: 'style!css!sass'
-    }, {
-      test: /\.css$/, // Only .css files
-      loader: 'style!css' // Run both loaders
+      include: path.join(__dirname, 'src/app')
     },
+    // }, {
+    //   test: /\.scss$/,
+    //   loader: 'style!css!sass'
+    // }, {
+    //   test: /\.css$/, // Only .css files
+    //   loader: 'style!css' // Run both loaders
+    // },
     {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}]
   }
 };
