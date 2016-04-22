@@ -60,15 +60,15 @@ gulp.task('minifycss', function() {
   return gulp.src('src/sass/*.scss')      //压缩的文件
     .pipe($.sass().on('error', $.sass.logError))
     .pipe($.autoprefixer())
-    .pipe(gulp.dest('dist/css'))  //输出文件夹
+    .pipe(gulp.dest('static/css'))  //输出文件夹
     .pipe($.cleanCss())   //执行压缩
-    .pipe(gulp.dest('dist/css'))  //输出文件夹
+    .pipe(gulp.dest('static/css'))  //输出文件夹
     .pipe($.rename({suffix: '.min'}))
     .pipe($.size({title: 'css'}));
 });
 
 gulp.task('clean', function (cb) {
-  del(['dist/*'], {dot: true}, cb);
+  del(['static/*'], {dot: true}, cb);
 });
 
 // 监视源文件变化自动cd编译
