@@ -11,4 +11,5 @@ npm-debug.log*
 # Folder
 node_modules
 static
+dist
 .DS_Store

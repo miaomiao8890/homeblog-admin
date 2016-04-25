@@ -1,7 +1,10 @@
-var path = require('path');
 var express = require('express');
+var path = require('path');
+var mongoose = require("mongoose");
 
 var app = express();
+var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
+mongoose.connect(dbUrl);
 
 app.use(express.static('static'));
 

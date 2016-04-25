@@ -28,19 +28,19 @@ gulp.task("webpack", function (callback) {
 gulp.task('copy', function () {
   return gulp.src([
     // 'app/*',
-    'static/*',
-    '!static/*.html',
-    '!static/js/*',
-    '!static/css/*',
-    'node_modules/jquery/dist/jquery.min.js'
+    '!dist/*',
+    '!dist/*.html',
+    '!dist/js/*',
+    '!dist/css/*',
+    'node_modules/bootstrap/dist/css/bootstrap.min.css'
   ], {
     dot: true
   })
 	  .pipe(gulp.dest(function (file) {
-	    if (file.path.indexOf('jquery') > -1) {
-	      return 'public/hb/js';
+	    if (file.path.indexOf('bootstrap') > -1) {
+	      return 'dist/css';
 	    }
-	    return 'public/hb';
+	    return 'dist';
 	  }))
 	  .pipe($.size({title: 'copy'}));
 });
@@ -52,7 +52,7 @@ gulp.task('images', function () {
       progressive: true,
       interlaced: true
     })))
-    .pipe(gulp.dest('public/hb/images'))
+    .pipe(gulp.dest('dist/images'))
     .pipe($.size({title: 'images'}));
 });
 
@@ -60,21 +60,21 @@ gulp.task('minifycss', function() {
   return gulp.src('src/sass/*.scss')      //压缩的文件
     .pipe($.sass().on('error', $.sass.logError))
     .pipe($.autoprefixer())
-    .pipe(gulp.dest('static/css'))  //输出文件夹
+    .pipe(gulp.dest('dist/css'))  //输出文件夹
     .pipe($.cleanCss())   //执行压缩
-    .pipe(gulp.dest('static/css'))  //输出文件夹
+    .pipe(gulp.dest('dist/css'))  //输出文件夹
     .pipe($.rename({suffix: '.min'}))
     .pipe($.size({title: 'css'}));
 });
 
 gulp.task('clean', function (cb) {
-  del(['static/*'], {dot: true}, cb);
+  del(['dist/*'], {dot: true}, cb);
 });
 
 // 监视源文件变化自动cd编译
 gulp.task('watch', function () {
   // gulp.watch('app/**/*.html', ['html']);
-  // gulp.watch('static/css/**/*css', ['minifycss']);
+  gulp.watch('src/sass/**/*.scss', ['minifycss']);
   // 使用 watchify，不再需要使用 gulp 监视 JS 变化
   // gulp.watch('app/js/**/*', ['jshint']);
   // gulp.watch('static/js/**/*.js', ['webpack']);
@@ -88,5 +88,5 @@ gulp.task('test', function () {
 
 // 默认任务
 gulp.task('default', function (cb) {
-  runSequence('clean', ['minifycss', 'webpack'], 'watch', cb);
+  runSequence('clean', ['copy', 'images', 'minifycss', 'webpack'], 'watch', cb);
 });

@@ -5,12 +5,12 @@ module.exports = {
   devtool: 'eval',
   entry: [
     // 'webpack-hot-middleware/client',
-    './src/app/index'
+    './src/app/client/index'
   ],
   output: {
-    path: path.join(__dirname, 'static/js'),
+    path: path.join(__dirname, 'dist/js'),
     filename: 'bundle.js',
-    publicPath: '/static/js'
+    publicPath: '/dist/js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -31,7 +31,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       loaders: ['babel'],
-      include: path.join(__dirname, 'src/app')
+      include: path.join(__dirname, 'src/app/client')
     },
     // }, {
     //   test: /\.scss$/,
