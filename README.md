@@ -1,2 +1,2 @@
-# redux-study
+# homeblog-admin
 react redux example

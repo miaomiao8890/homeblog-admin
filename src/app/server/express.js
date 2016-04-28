@@ -1,20 +1,20 @@
-import Express from 'express';
+import express from 'express';
 import path from 'path';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import qs from 'query-string';
-import serialize from 'serialize-javascript';
-import { createMemoryHistory } from 'history';
-import open from 'open';
+// import qs from 'query-string';
+// import serialize from 'serialize-javascript';
+// import { createMemoryHistory } from 'history';
+// import open from 'open';
 
-import reducer from '../client/reducers';
-import routes from '../routes';
-import {ReduxRouter} from 'redux-router';
-import {reduxReactRouter, match} from 'redux-router/server'; // 'redux-router/server';
-import request from 'superagent'
+// import reducer from '../client/reducers';
+// import routes from '../routes';
+// import {ReduxRouter} from 'redux-router';
+// import {reduxReactRouter, match} from 'redux-router/server'; // 'redux-router/server';
+// import request from 'superagent'
 
-var app = Express();
+var app = express();
 var mongoose = require("mongoose");
 
 var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
