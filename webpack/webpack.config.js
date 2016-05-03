@@ -28,18 +28,22 @@ module.exports = {
    * {test: /\.js$/,loader: "eslint-loader",exclude: /node_modules/,}
    */
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src/app/client')
-    },
-    // }, {
-    //   test: /\.scss$/,
-    //   loader: 'style!css!sass'
+    loaders: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+        // include: path.join(__dirname, 'src/app/client')
+      // }
+      }, {
+        test: /\.scss$/,
+        loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
+      }
+    ]
     // }, {
     //   test: /\.css$/, // Only .css files
     //   loader: 'style!css' // Run both loaders
     // },
-    {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}]
+      // {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}]
   }
 };
