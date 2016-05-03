@@ -8,12 +8,10 @@ export default class Containers extends Component {
   }
   render() {
     //const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
-    const styles = require('./App.scss');
+    // const styles = require('./App.scss');
     return (
-      <div className={styles.home}>
-        <div className={styles.wrapper}>
-          // <Header/>
-          // <Slider/>
+      <div className='home'>
+        <div className='wrapper'>
           {this.props.children}
         </div>
       </div>

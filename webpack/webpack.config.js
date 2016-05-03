@@ -1,5 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
+var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
+var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 
 module.exports = {
   devtool: 'eval',
@@ -17,8 +19,12 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
     new webpack.DefinePlugin({
-        __DEBUG__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
-    })
+      __CLIENT__: true,
+      __SERVER__: false,
+      __DEVELOPMENT__: true,
+      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
+    }),
+    webpackIsomorphicToolsPlugin.development()
   ],
   eslint: {
     configFile: '.eslintrc'

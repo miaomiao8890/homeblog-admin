@@ -15,7 +15,7 @@ import {reduxReactRouter, match} from 'redux-router/server'; // 'redux-router/se
 // import request from 'superagent'
 
 var app = express();
-var port = 3001;
+var port = 3000;
 var mongoose = require("mongoose");
 
 var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
@@ -45,7 +45,7 @@ const getMarkup = (store) => {
       <body>
         <div id="root">${markup}</div>
         <script>window.__initialState = ${initialState};</script>
-        <script src="http://localhost:3001/bundle.js"></script>
+        <script src="http://localhost:3000/bundle.js"></script>
       </body>
     </html>
   `;
