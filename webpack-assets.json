@@ -3,11 +3,5 @@
     "index": "http://localhost:3001/dist/js/bundle.js"
   },
   "styles": {},
-  "assets": {
-    "./src/app/client/containers/App/App.scss": {
-      "app": "app___2clan",
-      "wrapper": "wrapper___3IEnS",
-      "_style": ".app___2clan{background-color:#eee}.app___2clan .wrapper___3IEnS{color:#000}"
-    }
-  }
+  "assets": {}
 }

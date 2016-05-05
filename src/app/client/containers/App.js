@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-// import style from './App.scss'
 // import {Header, Slider} from '../components'
 
 export default class Containers extends Component {
@@ -8,10 +7,9 @@ export default class Containers extends Component {
   }
   render() {
     //const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
-    const styles = require('./App.scss');
     return (
-      <div className={styles.app}>
-        <div className={styles.wrapper}>
+      <div className="App">
+        <div className="wrapper">
           {this.props.children}
         </div>
       </div>

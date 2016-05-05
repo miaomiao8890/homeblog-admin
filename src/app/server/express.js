@@ -21,7 +21,8 @@ var mongoose = require("mongoose");
 var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
 mongoose.connect(dbUrl);
 
-app.use(express.static(path.join(__dirname, '..', 'dist')));
+// app.use(express.static(path.join(__dirname, '....', 'dist')));
+app.use(express.static(path.resolve('dist')))
 
 // app.get('*', function(req, res) {
 //   res.sendFile(path.join(__dirname, 'index.html'));
@@ -30,7 +31,7 @@ app.use(express.static(path.join(__dirname, '..', 'dist')));
 const getMarkup = (store) => {
   const initialState = serialize(store.getState());
   const markup = renderToString(
-    <Provider store={store} assets={webpackIsomorphicTools.assets()} key="provider">
+    <Provider store={store} key="provider">
       <ReduxRouter/>
     </Provider>
   );
@@ -38,12 +39,12 @@ const getMarkup = (store) => {
     <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-        <title>geekjiang</title>
+        <title>chrislion</title>
       </head>
       <body>
         <div id="root">${markup}</div>
         <script>window.__initialState = ${initialState};</script>
-        <script src="http://localhost:3000/dist/js/bundle.js"></script>
+        
       </body>
     </html>
   `;
