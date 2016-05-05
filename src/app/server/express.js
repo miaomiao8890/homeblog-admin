@@ -30,7 +30,7 @@ app.use(express.static('dist'));
 const getMarkup = (store) => {
   const initialState = serialize(store.getState());
   const markup = renderToString(
-    <Provider store={store} key="provider">
+    <Provider store={store} assets={webpackIsomorphicTools.assets()} key="provider">
       <ReduxRouter/>
     </Provider>
   );
@@ -39,19 +39,23 @@ const getMarkup = (store) => {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
         <title>geekjiang</title>
-        <link rel="stylesheet" type="text/css" href="http://localhost:3001/style.css" />
-        <link rel="stylesheet" type="text/css" href="http://localhost:3000/css/slick.css" />
       </head>
       <body>
         <div id="root">${markup}</div>
         <script>window.__initialState = ${initialState};</script>
-        <script src="http://localhost:3000/bundle.js"></script>
+        <script src="http://localhost:3000/dist/bundle.js"></script>
       </body>
     </html>
   `;
 };
 
 app.use((req, res) => {
+
+	if (__DEVELOPMENT__) {
+    // Do not cache webpack stats: the script file would change since
+    // hot module replacement is enabled in the development env
+    webpackIsomorphicTools.refresh();
+  }
   // TO DO
   // console.log(createStore, createMemoryHistory)
   const store = reduxReactRouter({ routes, createHistory: createMemoryHistory })(createStore)(reducer);

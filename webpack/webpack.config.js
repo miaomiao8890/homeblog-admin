@@ -2,17 +2,23 @@ var path = require('path');
 var webpack = require('webpack');
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
+var host = (process.env.HOST || 'localhost');
+var port = (+process.env.PORT + 1) || 3001;
+var assetsPath = path.resolve(__dirname, '../dist/js');
 
 module.exports = {
-  devtool: 'eval',
-  entry: [
+  devtool: 'inline-source-map',
+  entry: {
     // 'webpack-hot-middleware/client',
-    './src/app/client/index'
-  ],
+    'index': [
+      // 'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
+      './src/app/client/index'
+    ]
+  },
   output: {
-    path: path.join(__dirname, 'dist/js'),
+    path: assetsPath,
     filename: 'bundle.js',
-    publicPath: '/dist/js'
+    publicPath: 'http://' + host + ':' + port + '/dist/js/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

@@ -11,7 +11,7 @@
   },
   "betterScripts": {
     "start-dev": {
-      "command": "node src/app/server/server.js",
+      "command": "node ./bin/server.js",
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
@@ -115,6 +115,7 @@
     "mongoose": "^4.0.2",
     "morgan": "^1.5.3",
     "multer": "^0.1.8",
+    "piping": "^0.3.0",
     "query-string": "^4.1.0",
     "react": "^0.14.1",
     "react-dom": "^0.14.0",
