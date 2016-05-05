@@ -7,7 +7,7 @@ var runSequence = require('run-sequence');
 
 var gutil = require("gulp-util");
 var webpack = require("webpack");
-var webpackConfig = require("./webpack.config.js");
+var webpackConfig = require("./webpack/webpack.config.js");
 
 gulp.task("webpack", function (callback) {
   var myConfig = Object.create(webpackConfig);

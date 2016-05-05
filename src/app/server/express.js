@@ -21,7 +21,7 @@ var mongoose = require("mongoose");
 var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
 mongoose.connect(dbUrl);
 
-app.use(express.static('dist'));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // app.get('*', function(req, res) {
 //   res.sendFile(path.join(__dirname, 'index.html'));
@@ -43,7 +43,7 @@ const getMarkup = (store) => {
       <body>
         <div id="root">${markup}</div>
         <script>window.__initialState = ${initialState};</script>
-        <script src="http://localhost:3000/dist/bundle.js"></script>
+        <script src="http://localhost:3000/dist/js/bundle.js"></script>
       </body>
     </html>
   `;

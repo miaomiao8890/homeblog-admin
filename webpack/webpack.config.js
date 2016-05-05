@@ -8,11 +8,11 @@ var assetsPath = path.resolve(__dirname, '../dist/js');
 
 module.exports = {
   devtool: 'inline-source-map',
+  context: path.resolve(__dirname, '..'),
   entry: {
-    // 'webpack-hot-middleware/client',
     'index': [
-      // 'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
-      './src/app/client/index'
+      'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
+      './src/app/client/index.js'
     ]
   },
   output: {
