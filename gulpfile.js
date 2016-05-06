@@ -67,6 +67,15 @@ gulp.task('minifycss', function() {
     .pipe($.size({title: 'css'}));
 });
 
+gulp.task('minifyjs', function () {
+  return gulp.src(['static/js/*.js'])
+      .pipe($.uglify({
+          // mangle: true,
+          // compress: true
+      }))
+      .pipe(gulp.dest('dist/js'));
+});
+
 gulp.task('clean', function (cb) {
   del(['dist/*'], {dot: true}, cb);
 });
@@ -88,5 +97,5 @@ gulp.task('test', function () {
 
 // 默认任务
 gulp.task('default', function (cb) {
-  runSequence('clean', ['copy', 'images', 'minifycss', 'webpack'], 'watch', cb);
+  runSequence('clean', ['copy', 'images', 'minifycss', 'webpack'], 'minifyjs', 'watch', cb);
 });

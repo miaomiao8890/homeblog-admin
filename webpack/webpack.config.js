@@ -4,16 +4,13 @@ var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 var host = (process.env.HOST || 'localhost');
 var port = (+process.env.PORT + 1) || 3001;
-var assetsPath = path.resolve(__dirname, '../dist/js');
+var assetsPath = path.resolve(__dirname, '../static/js');
 
 module.exports = {
   devtool: 'inline-source-map',
   context: path.resolve(__dirname, '..'),
   entry: {
-    'index': [
-      'webpack-hot-middleware/client?path=http://' + host + ':' + port + '/__webpack_hmr',
-      './src/app/client/index.js'
-    ]
+    index: ['./src/app/client/index.js']
   },
   output: {
     path: assetsPath,
@@ -29,8 +26,8 @@ module.exports = {
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
-    }),
-    webpackIsomorphicToolsPlugin.development()
+    })
+    // webpackIsomorphicToolsPlugin.development()
   ],
   eslint: {
     configFile: '.eslintrc'

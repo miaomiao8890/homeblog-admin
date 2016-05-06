@@ -1,6 +1,6 @@
 {
   "javascript": {
-    "index": "http://localhost:3001/dist/js/bundle.js"
+    "main": "http://localhost:3001/dist/js/bundle.js"
   },
   "styles": {},
   "assets": {}
