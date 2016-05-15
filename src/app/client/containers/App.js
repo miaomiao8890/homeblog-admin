@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'; 
+import React, { Component, PropTypes } from 'react';
 // import {Header, Slider} from '../components'
 
 export default class Containers extends Component {
