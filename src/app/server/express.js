@@ -57,24 +57,47 @@ app.use((req, res) => {
     // hot module replacement is enabled in the development env
     webpackIsomorphicTools.refresh();
   }
-  // TO DO
-  // console.log(createStore, createMemoryHistory)
-  const store = reduxReactRouter({ routes, createHistory: createMemoryHistory })(createStore)(reducer);
-  const query = qs.stringify(req.query);
-  const url = req.path + (query.length ? '?' + query : '');
+  const client = new ApiClient(req);
+  const history = createHistory(req.originalUrl);
 
-  store.dispatch(match(url, (error, redirectLocation, routerState) => {
-    if (error) {
-      console.error('Router error:', error);
-      res.status(500).send(error.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (!routerState) {
-      res.status(400).send('Not Found');
+  const store = createStore(history, client);
+
+  function hydrateOnClient() {
+    res.send('<!doctype html>\n' +
+      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store}/>));
+  }
+
+  if (__DISABLE_SSR__) {
+    hydrateOnClient();
+    return;
+  }
+
+  match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
+    if (redirectLocation) {
+      res.redirect(redirectLocation.pathname + redirectLocation.search);
+    } else if (error) {
+      console.error('ROUTER ERROR:', pretty.render(error));
+      res.status(500);
+      hydrateOnClient();
+    } else if (renderProps) {
+      loadOnServer({...renderProps, store, helpers: {client}}).then(() => {
+        const component = (
+          <Provider store={store} key="provider">
+            <ReduxAsyncConnect {...renderProps} />
+          </Provider>
+        );
+
+        res.status(200);
+
+        global.navigator = {userAgent: req.headers['user-agent']};
+
+        res.send('<!doctype html>\n' +
+          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
+      });
     } else {
-      res.status(200).send(getMarkup(store));
+      res.status(404).send('Not found');
     }
-  }));
+  });
 });
 
 app.listen(port, function(error) {
