@@ -9,7 +9,7 @@ export default class Containers extends Component {
     //const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
     return (
       <div className="App">
-        <div className="wrapper">
+        <div className="admin-wrap">
           {this.props.children}
         </div>
       </div>

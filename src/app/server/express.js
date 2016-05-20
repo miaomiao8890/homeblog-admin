@@ -21,6 +21,15 @@ var mongoose = require("mongoose");
 var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
 mongoose.connect(dbUrl);
 
+var session = require("express-session");
+var mongoStore = require("connect-mongo")(session);
+app.use(session({
+  secret: "homeblog",
+  store: new mongoStore({
+    url: dbUrl,
+    collection: "sessions"
+  })
+}));
 // app.use(express.static(path.join(__dirname, '....', 'dist')));
 app.use(express.static(path.resolve('dist')))
 
@@ -28,77 +37,57 @@ app.use(express.static(path.resolve('dist')))
 //   res.sendFile(path.join(__dirname, 'index.html'));
 // });
 
-const getMarkup = (store) => {
-  const initialState = serialize(store.getState());
-  const markup = renderToString(
-    <Provider store={store} key="provider">
-      <ReduxRouter/>
-    </Provider>
-  );
-  return `<!doctype html>
-    <html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-        <title>chrislion</title>
-      </head>
-      <body>
-        <div id="root">${markup}</div>
-        <script>window.__initialState = ${initialState};</script>
-        <script src="js/bundle.js"></script>
-      </body>
-    </html>
-  `;
-};
+// const getMarkup = (store) => {
+//   const initialState = serialize(store.getState());
+//   const markup = renderToString(
+//     <Provider store={store} key="provider">
+//       <ReduxRouter/>
+//     </Provider>
+//   );
+//   return `<!doctype html>
+//     <html>
+//       <head>
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+//         <title>chrislion</title>
+//         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"></link>
+//         <link rel="stylesheet" type="text/css" href="css/main.css"></link>
+//       </head>
+//       <body>
+//         <div id="root">${markup}</div>
+//         <script>window.__initialState = ${initialState};</script>
+//         <script src="js/bundle.js"></script>
+//       </body>
+//     </html>
+//   `;
+// };
 
-app.use((req, res) => {
+// app.use((req, res) => {
 
-	if (__DEVELOPMENT__) {
-    // Do not cache webpack stats: the script file would change since
-    // hot module replacement is enabled in the development env
-    webpackIsomorphicTools.refresh();
-  }
-  const client = new ApiClient(req);
-  const history = createHistory(req.originalUrl);
+// 	if (__DEVELOPMENT__) {
+//     // Do not cache webpack stats: the script file would change since
+//     // hot module replacement is enabled in the development env
+//     webpackIsomorphicTools.refresh();
+//   }
+//   // TO DO
+//   // console.log(createStore, createMemoryHistory)
+//   const store = reduxReactRouter({ routes, createHistory: createMemoryHistory })(createStore)(reducer);
+//   const query = qs.stringify(req.query);
+//   const url = req.path + (query.length ? '?' + query : '');
 
-  const store = createStore(history, client);
-
-  function hydrateOnClient() {
-    res.send('<!doctype html>\n' +
-      ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} store={store}/>));
-  }
-
-  if (__DISABLE_SSR__) {
-    hydrateOnClient();
-    return;
-  }
-
-  match({ history, routes: getRoutes(store), location: req.originalUrl }, (error, redirectLocation, renderProps) => {
-    if (redirectLocation) {
-      res.redirect(redirectLocation.pathname + redirectLocation.search);
-    } else if (error) {
-      console.error('ROUTER ERROR:', pretty.render(error));
-      res.status(500);
-      hydrateOnClient();
-    } else if (renderProps) {
-      loadOnServer({...renderProps, store, helpers: {client}}).then(() => {
-        const component = (
-          <Provider store={store} key="provider">
-            <ReduxAsyncConnect {...renderProps} />
-          </Provider>
-        );
-
-        res.status(200);
-
-        global.navigator = {userAgent: req.headers['user-agent']};
-
-        res.send('<!doctype html>\n' +
-          ReactDOM.renderToString(<Html assets={webpackIsomorphicTools.assets()} component={component} store={store}/>));
-      });
-    } else {
-      res.status(404).send('Not found');
-    }
-  });
-});
+//   store.dispatch(match(url, (error, redirectLocation, routerState) => {
+//     if (error) {
+//       console.error('Router error:', error);
+//       res.status(500).send(error.message);
+//     } else if (redirectLocation) {
+//       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+//     } else if (!routerState) {
+//       res.status(400).send('Not Found');
+//     } else {
+//       res.status(200).send(getMarkup(store));
+//     }
+//   }));
+// });
+require("./config/routes")(app);
 
 app.listen(port, function(error) {
   if (error) {
