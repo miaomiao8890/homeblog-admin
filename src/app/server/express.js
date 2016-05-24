@@ -21,6 +21,11 @@ var mongoose = require("mongoose");
 var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
 mongoose.connect(dbUrl);
 
+app.set("views", "./app/views/");
+var swig = new swig.Swig();
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+
 var session = require("express-session");
 var mongoStore = require("connect-mongo")(session);
 app.use(session({
