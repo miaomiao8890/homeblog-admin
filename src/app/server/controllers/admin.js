@@ -1,9 +1,16 @@
-var User = require("../../models/user");
+var User = require("../models/user");
 
 //注册
 exports.showSignup = function(req, res){
   res.render("admin/signup", {
     title: "注册"
+  });
+}
+
+//登陆
+exports.showLogin = function(req, res){
+  res.render("login", {
+    title: "登陆"
   });
 }
 
@@ -62,7 +69,7 @@ exports.login = function(req, res){
 
 //admin 首页
 exports.index = function(req, res){
-  res.render("admin/index", {
+  res.render("index", {
     title: "系统后台-首页"
   });
 }

@@ -5,7 +5,7 @@ import { persistState } from 'redux-devtools'
 // import DevTools from '../containers/DevTools'
 import {reduxReactRouter} from 'redux-router'
 import createHistory from 'history/lib/createBrowserHistory'
-import routes from '../../routes'
+import routes from '../routes'
 
 const enhancer = compose(
   reduxReactRouter({ routes, createHistory }),

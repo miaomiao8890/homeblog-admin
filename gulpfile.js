@@ -80,12 +80,16 @@ gulp.task('clean', function (cb) {
   del(['dist/*'], {dot: true}, cb);
 });
 
+gulp.task('cleanjs', function (cb) {
+  del(['dist/js/*'], {dot: true}, cb);
+});
+
 // 监视源文件变化自动cd编译
 gulp.task('watch', function () {
   // gulp.watch('app/**/*.html', ['html']);
   gulp.watch('src/sass/**/*.scss', ['minifycss']);
   // 使用 watchify，不再需要使用 gulp 监视 JS 变化
-  gulp.watch('src/app/client/**/*', ['webpack']);
+  gulp.watch('src/app/client/**/*', ['watchWebpack']);
   // gulp.watch('static/js/**/*.js', ['webpack']);
 });
 
@@ -93,6 +97,10 @@ gulp.task('test', function () {
   return gulp
   .src('test/runner.html')
   .pipe($.mochaPhantomjs());
+});
+
+gulp.task('watchWebpack', function (cb) {
+  runSequence('cleanjs', ['webpack'], cb);
 });
 
 // 默认任务

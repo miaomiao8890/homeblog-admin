@@ -9,9 +9,10 @@ import serialize from 'serialize-javascript';
 import { createMemoryHistory } from 'history';
 
 import reducer from '../client/reducers';
-import routes from '../routes';
+// import routes from '../routes';
 import {ReduxRouter} from 'redux-router';
 import {reduxReactRouter, match} from 'redux-router/server'; // 'redux-router/server';
+import swig from 'swig';
 // import request from 'superagent'
 
 var app = express();
@@ -21,10 +22,12 @@ var mongoose = require("mongoose");
 var dbUrl = "mongodb://123.57.21.57:27017/homeblog";
 mongoose.connect(dbUrl);
 
-app.set("views", "./app/views/");
-var swig = new swig.Swig();
-app.engine('html', swig.renderFile);
-app.set('view engine', 'html');
+// app.set("views", "./views/");
+// // var swig = new swig.Swig();
+// app.engine('html', swig.renderFile);
+// app.set('view engine', 'html');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 var session = require("express-session");
 var mongoStore = require("connect-mongo")(session);
@@ -38,6 +41,11 @@ app.use(session({
 // app.use(express.static(path.join(__dirname, '....', 'dist')));
 app.use(express.static(path.resolve('dist')))
 
+app.get("/login", function(req, res) {
+	res.render("admin/index", {
+    title: "系统后台-首页"
+  });
+});
 // app.get('*', function(req, res) {
 //   res.sendFile(path.join(__dirname, 'index.html'));
 // });
@@ -92,7 +100,6 @@ app.use(express.static(path.resolve('dist')))
 //     }
 //   }));
 // });
-require("./config/routes")(app);
 
 app.listen(port, function(error) {
   if (error) {
@@ -101,3 +108,5 @@ app.listen(port, function(error) {
     console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
   }
 })
+
+require("./routes")(app);
