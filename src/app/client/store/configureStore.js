@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { combineReducers } from 'redux-immutable';
 import thunk from 'redux-thunk';
 import logger from './middleware/logger';
-import * as reducers from './reducers';
+import * as reducers from './reducers'; 
 
 import Immutable from 'immutable';
 
