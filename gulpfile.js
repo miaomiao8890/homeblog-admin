@@ -81,7 +81,7 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('cleanjs', function (cb) {
-  del(['dist/js/*'], {dot: true}, cb);
+  del(['dist/js/*', 'static/js/*'], {dot: true}, cb);
 });
 
 // 监视源文件变化自动cd编译
@@ -100,7 +100,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('watchWebpack', function (cb) {
-  runSequence('cleanjs', ['webpack'], cb);
+  runSequence('cleanjs', ['webpack'], 'minifyjs', cb);
 });
 
 // 默认任务

@@ -4,7 +4,6 @@ import {Link} from 'react-router';
 export default class Navbar extends Component {
 
   render() {
-    //const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
     return (
     	<div className="admin-sidebar">
 	      <ul>

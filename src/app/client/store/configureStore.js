@@ -1,24 +1,30 @@
-import { createStore, applyMiddleware } from 'redux';
-import { combineReducers } from 'redux-immutable';
-import thunk from 'redux-thunk';
-import logger from './middleware/logger';
-import * as reducers from './reducers';
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import reducer from '../reducers'
+import { persistState } from 'redux-devtools'
+// import DevTools from '../containers/DevTools'
+import {reduxReactRouter} from 'redux-router'
+import createHistory from 'history/lib/createBrowserHistory'
+import routes from '../routes'
 
-import Immutable from 'immutable';
+const enhancer = compose(
+  reduxReactRouter({ routes, createHistory }),
+  applyMiddleware(thunk),
+  // DevTools.instrument(),
+  persistState(
+    window.location.href.match(
+      /[?&]debug_session=([^&]+)\b/
+    )
+  )
+);
 
-import _ from 'lodash';
+export default function configureStore(initialState) {
+  const store = createStore(reducer, initialState, enhancer);
 
-let reducer,
-    state,
-    store;
-
-reducer = combineReducers(reducers);
-
-state = Immutable.Map({});
-state = reducer(state, {
-    name: `CONSTRUCT`
-});
-
-store = applyMiddleware(thunk, logger)(createStore)(reducer, state);
-
-export default store;
+  if (module.hot) {
+    module.hot.accept('../reducers', () =>
+      store.replaceReducer(require('../reducers').default)
+    );
+  }
+  return store;
+}

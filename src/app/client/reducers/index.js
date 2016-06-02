@@ -47,9 +47,6 @@ function errorMessage(state = null, action) {
 // })
 
 const rootReducer = combineReducers({
-  entities,
-  // pagination,
-  errorMessage,
   router: routerStateReducer
 })
 
