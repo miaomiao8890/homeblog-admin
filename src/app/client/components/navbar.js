@@ -3,6 +3,10 @@ import {Link} from 'react-router';
 
 export default class Navbar extends Component {
 
+  componentWillMount() {
+    console.log(this.props.navName)
+  }
+
   render() {
     return (
     	<div className="admin-sidebar">
