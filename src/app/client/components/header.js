@@ -7,7 +7,7 @@ export default class Header extends Component {
     //const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
     return (
       <div className="admin-header">
-	      <h1><Link to='/'><img src="images/logo.png" alt="Chrislion" /></Link></h1>
+	      <h1><Link to='/'><img src="/images/logo.png" alt="Chrislion" /></Link></h1>
 	      <div className="navbar">
 	        <ul className="nav btn-group">
 	          <li className="btn-inverse">
