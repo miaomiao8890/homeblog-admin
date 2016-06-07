@@ -12,7 +12,9 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    
+    if (!this.props.merchants) {
+      this.props.loadMerchants();
+    }
   }
 
   render() {
@@ -26,7 +28,7 @@ class Home extends Component {
             <h1>Article List</h1>
           </div>
           <div className="content-breadcrumb">
-            <a className="tip-bottom current"><i className="icon-home"></i> Home</a>
+            <a className="tip-bottom"><i className="icon-home"></i> Home</a>
             <a className="current">Article List</a>
           </div>
           <div className="container-fluid">

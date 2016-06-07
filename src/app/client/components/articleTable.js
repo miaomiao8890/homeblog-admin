@@ -29,8 +29,65 @@ export default class ArticleTable extends Component {
       onSelect: onRowSelect,
       onSelectAll: onSelectAll
     };
-    return ( 
-    	
+    return (
+    	<div className="widget-box">
+        <div className="widget-title">
+          <span className="icon">
+            <i className="icon-th"></i>
+          </span>
+          <h5>Static table</h5>
+        </div>
+        <div className="widget-content nopadding">
+          <table className="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Column name</th>
+                <th>Column name</th>
+                <th>Column name</th>
+                <th>Column name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+                <td>Row 4</td>
+              </tr>
+              <tr>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+                <td>Row 4</td>
+              </tr>
+              <tr>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+                <td>Row 4</td>
+              </tr>
+              <tr>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+                <td>Row 4</td>
+              </tr>
+              <tr>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+                <td>Row 4</td>
+              </tr>
+              <tr>
+                <td>Row 1</td>
+                <td>Row 2</td>
+                <td>Row 3</td>
+                <td>Row 4</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 }

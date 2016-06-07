@@ -1,5 +1,6 @@
 var Admin = require("./controllers/admin");
 
 module.exports = function(app){
-  app.get("/*", Admin.index);
+  app.get("/admin/*", Admin.index);
+  app.get("/getArticleAll", Admin.getArticleAll);
 }
