@@ -4,7 +4,7 @@ import * as ArticleActions from "../actions";
 import { bindActionCreators } from "redux";
 import Header from '../components/header';
 import Navbar from '../components/navbar';
-import Content from '../components/content';
+import ArticleTable from '../components/articleTable';
 
 class Home extends Component {
   constructor(props) {
@@ -17,15 +17,24 @@ class Home extends Component {
 
   render() {
     const navName = 'articleList';
-    const contentHeader = {
-      title: 'Article List',
-      breadcrumb: ['Home', 'Article List']
-    }
     return (
       <div>
         <Header />
         <Navbar navName={navName} />
-        <Content contentHeader={contentHeader} />
+        <div className="admin-content">
+          <div className="content-header">
+            <h1>Article List</h1>
+          </div>
+          <div className="content-breadcrumb">
+            <a className="tip-bottom current"><i className="icon-home"></i> Home</a>
+            <a className="current">Article List</a>
+          </div>
+          <div className="container-fluid">
+            <div className="row-fluid">
+              <ArticleTable />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

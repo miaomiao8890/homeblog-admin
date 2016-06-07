@@ -350,5 +350,13 @@ html, body, #root, .App {
         color: #444444;
       }
     }
+    .container-fluid {
+      .row-fluid {
+        width: 100%;
+        &:first-child {
+          margin-top: 20px;
+        }
+      }
+    }
   }
 }
