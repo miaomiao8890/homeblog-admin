@@ -1,1 +1,3 @@
-export const GET_CURRENT_NAV = 'GET_CURRENT_NAV'
+export const DATA_LOADING = "DATA_LOADING";
+export const DATA_LOADED = "DATA_LOADED";
+export const ARTICLES_FETCHED = 'ARTICLES_FETCHED'

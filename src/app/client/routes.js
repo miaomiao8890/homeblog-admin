@@ -5,8 +5,8 @@ import Home from './containers/Home.js'
 import ArticleList from './containers/ArticleList.js'
 
 export default(
-  <Route path='/' component={App}>
+  <Route path='/admin/' component={App}>
   	<IndexRoute component={Home}/>
-    <Route path='/article/list' component={ArticleList}/>
+    <Route path='/admin/article/list' component={ArticleList}/>
   </Route>
 );

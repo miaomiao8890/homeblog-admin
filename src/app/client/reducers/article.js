@@ -1,14 +1,20 @@
 import * as types from '../constants/actionTypes'
 
 const initialState = {
-  currentNav: '',
+  articles: []
 }
 
-export default function getArticle(state = initialState, action) {
+export default function article(state = initialState, action) {
   switch (action.type) {
-    case types.GET_CURRENT_NAV:
-      return Object.assign({}, state, {currentNav: action.navName});
+    case types.ARTICLES_UPDATED:
+      return Object.assign({}, state, {
+        article: action.article
+      });
+    case types.ARTICLES_FETCHED:
+      return Object.assign({}, state, {
+        articles: action.articles
+      });
     default:
-      return state;
+      return state
   }
 }

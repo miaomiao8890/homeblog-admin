@@ -1,9 +1,9 @@
 import { routerStateReducer } from 'redux-router'
 import { combineReducers } from 'redux'
-import UI from "./ui"
+import article from "./article"
 
 const rootReducer = combineReducers({
-  UI,
+  article,
   router: routerStateReducer
 })
 

@@ -6,14 +6,15 @@ import Header from '../components/header';
 import Navbar from '../components/navbar';
 import ArticleTable from '../components/articleTable';
 
-class Home extends Component {
+class ArticleList extends Component {
   constructor(props) {
     super(props);
   }
 
   componentWillMount() {
-    if (!this.props.merchants) {
-      this.props.loadMerchants();
+    // console.log(this.props.articles)
+    if (this.props.articles.length == 0) {
+      this.props.actions.fetchArticles();
     }
   }
 
@@ -33,7 +34,7 @@ class Home extends Component {
           </div>
           <div className="container-fluid">
             <div className="row-fluid">
-              <ArticleTable />
+              <ArticleTable articles={this.props.articles} />
             </div>
           </div>
         </div>
@@ -43,7 +44,7 @@ class Home extends Component {
 }
 
 export default connect(state => ({
-  currentNav: state.UI,
+  articles: state.article.articles,
 }), dispatch => ({
   actions: bindActionCreators(ArticleActions, dispatch)
-}))(Home)
+}))(ArticleList)

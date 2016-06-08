@@ -1,7 +1,19 @@
-import { checkHttpStatus, parseJSON } from '../utils';
+import { checkHttpStatus, parseJSON } from '../utils'
 import * as types from '../constants/actionTypes'
 
-export function fetchArticles(navName) {
+export function dataLoading() {
+  return {
+    type: types.DATA_LOADING
+  }
+}
+
+export function dataLoaded() {
+  return {
+    type: types.DATA_LOADED
+  }
+}
+
+export function fetchArticles() {
   return function (dispatch) {
   	dispatch(dataLoading());
 
@@ -16,14 +28,22 @@ export function fetchArticles(navName) {
     .then(parseJSON)
     .then(response => {
       try {
-        dispatch(merchantsFetched(merchants));
+        dispatch(articlesFetched(response.result));
         dispatch(dataLoaded());
       } catch (e) {
-        dispatch(dataLoadedFailure());
+        // dispatch(dataLoadedFailure());
       }
     })
     .catch(error => {
-      dispatch(dataLoadedFailure());
+      // dispatch(dataLoadedFailure());
     })
   }
 }
+
+export function articlesFetched(articles) {
+	return {
+		type: types.ARTICLES_FETCHED,
+		articles: articles
+	}
+}
+
