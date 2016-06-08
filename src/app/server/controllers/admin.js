@@ -1,3 +1,4 @@
+var Article = require("../../models/article");
 var User = require("../models/user");
 
 //注册
@@ -92,4 +93,17 @@ exports.adminRequired = function(req, res, next){
   }
 
   next();
+}
+
+//API
+exports.getArticleAll = function(req, res) {
+  Article.fetch(function(err, articles){
+    if(err){
+      console.log(err);
+    }
+    res.json({
+      status_code: 200,
+      result: articles
+    });
+  });
 }
