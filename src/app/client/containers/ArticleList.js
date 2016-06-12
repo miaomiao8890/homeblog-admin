@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from "react-redux";
 import * as ArticleActions from "../actions";
 import { bindActionCreators } from "redux";
-import Header from '../components/header';
-import Navbar from '../components/navbar';
-import ArticleTable from '../components/articleTable';
+import Header from '../components/Header';
+import Navbar from '../components/Navbar';
+import ArticleTable from '../components/ArticleTable';
 
 class ArticleList extends Component {
   constructor(props) {
@@ -20,6 +20,7 @@ class ArticleList extends Component {
 
   render() {
     const navName = 'articleList';
+    const tableTitle = 'Article List';
     return (
       <div>
         <Header />
@@ -33,8 +34,11 @@ class ArticleList extends Component {
             <a className="current">Article List</a>
           </div>
           <div className="container-fluid">
-            <div className="row-fluid">
-              <ArticleTable articles={this.props.articles} />
+            <div className="content-loading" style={{ display: this.props.isFetching ? 'block' : 'none' }}>
+              <img src="/images/loading-big.gif" />
+            </div>
+            <div className="row-fluid" style={{ display: this.props.isFetching ? 'none' : 'block' }}>
+              <ArticleTable articles={this.props.articles} tableTitle={tableTitle} />
             </div>
           </div>
         </div>
@@ -45,6 +49,7 @@ class ArticleList extends Component {
 
 export default connect(state => ({
   articles: state.article.articles,
+  isFetching: state.uiState.isFetching,
 }), dispatch => ({
   actions: bindActionCreators(ArticleActions, dispatch)
 }))(ArticleList)

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from "react-redux";
-import Header from '../components/header';
-import Navbar from '../components/navbar';
+import Header from '../components/Header';
+import Navbar from '../components/Navbar';
 
 class Home extends Component {
   constructor(props) {

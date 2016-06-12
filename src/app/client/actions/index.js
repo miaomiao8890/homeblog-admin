@@ -1,5 +1,6 @@
 import { checkHttpStatus, parseJSON } from '../utils'
 import * as types from '../constants/actionTypes'
+import fetch from 'isomorphic-fetch'
 
 export function dataLoading() {
   return {
@@ -24,11 +25,12 @@ export function fetchArticles() {
         'Content-Type': 'application/json'
       }
     })
-    .then(checkHttpStatus)
-    .then(parseJSON)
     .then(response => {
+      return response.json();
+    })
+    .then(data => {
       try {
-        dispatch(articlesFetched(response.result));
+        dispatch(articlesFetched(data.result));
         dispatch(dataLoaded());
       } catch (e) {
         // dispatch(dataLoadedFailure());

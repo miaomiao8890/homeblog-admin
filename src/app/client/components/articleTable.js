@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Paginate from './Paginate';
 
 export default class ArticleTable extends Component {
   constructor(props) {
@@ -11,7 +12,11 @@ export default class ArticleTable extends Component {
           <td>{article.title}</td>
           <td>{article.category}</td>
           <td>{article.previewimg}</td>
-          <td>{article.summary}</td>
+          <td title={article.summary}>{article.summary}</td>
+          <td className="taskOptions">
+            <a href="#"><i className="icon-pencil"></i></a>
+            <a href="#"><i className="icon-remove"></i></a>
+          </td>
         </tr>
       )
     })
@@ -21,22 +26,24 @@ export default class ArticleTable extends Component {
           <span className="icon">
             <i className="icon-th"></i>
           </span>
-          <h5>Static table</h5>
+          <h5>{this.props.tableTitle}</h5>
         </div>
         <div className="widget-content nopadding">
           <table className="table table-bordered table-striped">
             <thead>
               <tr>
-                <th>文章标题</th>
-                <th>分类</th>
-                <th>图片名称</th>
-                <th>概要</th>
+                <th width="20%">文章标题</th>
+                <th width="5%">分类</th>
+                <th width="20%">图片名称</th>
+                <th width="50%">概要</th>
+                <th width="5%">操作</th>
               </tr>
             </thead>
             <tbody>
               {trItem}
             </tbody>
           </table>
+          <Paginate />
         </div>
       </div>
     )
