@@ -4,11 +4,41 @@ import Paginate from './Paginate';
 export default class ArticleTable extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentPage: 1
+    };
+    this._handlePageChange = this._handlePageChange.bind(this);
+  }
+  _handlePageChange(evt) {
+    let page = evt.target.dataset.page;
+    switch(page) {
+      case 'First':
+        this.setState({currentPage: 1});
+        break;
+      case 'Previous':
+        if (this.state.currentPage > 1) {
+          this.setState({currentPage: this.state.currentPage - 1});
+        }
+        break;
+      case 'Next':
+        if (this.state.currentPage < this.props.totalPage) {
+          this.setState({currentPage: this.state.currentPage + 1});
+        }
+        break;
+      case 'Last':
+        this.setState({currentPage: this.props.totalPage});
+        break;
+      default:
+        this.setState({currentPage: parseInt(page)});
+        break;
+    }
   }
   render() {
-    let trItem = this.props.articles.map(article => {
+    const { tableTitle, perPage, articles, totalPage } = this.props;
+    let items = articles.slice((this.state.currentPage - 1) * perPage, this.state.currentPage * perPage);
+    let trItem = items.map(article => {
       return (
-        <tr>
+        <tr key={article.id}>
           <td>{article.title}</td>
           <td>{article.category}</td>
           <td>{article.previewimg}</td>
@@ -26,7 +56,7 @@ export default class ArticleTable extends Component {
           <span className="icon">
             <i className="icon-th"></i>
           </span>
-          <h5>{this.props.tableTitle}</h5>
+          <h5>{tableTitle}</h5>
         </div>
         <div className="widget-content nopadding">
           <table className="table table-bordered table-striped">
@@ -43,7 +73,7 @@ export default class ArticleTable extends Component {
               {trItem}
             </tbody>
           </table>
-          <Paginate />
+          <Paginate currentPage={this.state.currentPage} totalPage={totalPage} listLength={articles.length} _handlePageChange={this._handlePageChange} />
         </div>
       </div>
     )

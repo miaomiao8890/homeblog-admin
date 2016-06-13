@@ -12,7 +12,6 @@ class ArticleList extends Component {
   }
 
   componentWillMount() {
-    // console.log(this.props.articles)
     if (this.props.articles.length == 0) {
       this.props.actions.fetchArticles();
     }
@@ -21,6 +20,8 @@ class ArticleList extends Component {
   render() {
     const navName = 'articleList';
     const tableTitle = 'Article List';
+    const perPage = 10;
+    let totalPage = Math.ceil(this.props.articles.length / perPage);
     return (
       <div>
         <Header />
@@ -38,7 +39,7 @@ class ArticleList extends Component {
               <img src="/images/loading-big.gif" />
             </div>
             <div className="row-fluid" style={{ display: this.props.isFetching ? 'none' : 'block' }}>
-              <ArticleTable articles={this.props.articles} tableTitle={tableTitle} />
+              <ArticleTable articles={this.props.articles} tableTitle={tableTitle} perPage={perPage} totalPage={totalPage} />
             </div>
           </div>
         </div>

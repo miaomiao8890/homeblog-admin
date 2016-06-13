@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
 
 export default class Paginate extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    const { currentPage, totalPage, listLength, _handlePageChange } = this.props;
+    let pageList = [];
+    let pageNum = totalPage > 5 ? 5 : totalPage;
+    for (var i = 1; i <= pageNum; i++) {
+      if (totalPage > 5 && currentPage > 5) {
+        pageList.push(currentPage-(5-i));
+      } else {
+        pageList.push(i);
+      }
+    };
+    let pageItem = pageList.map(item => {
+      let classname = item == currentPage ? 'ui-button ui-state-disabled' : 'ui-button';
+      return (
+        <a className={classname} data-page={item}>{item}</a>
+      )
+    })
     return (
-      <div className="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
-        <div className="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers" id="DataTables_Table_0_paginate">
-          <a tabindex="0" className="first ui-corner-tl ui-corner-bl fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_first">First</a>
-          <a tabindex="0" className="previous fg-button ui-button ui-state-default ui-state-disabled" id="DataTables_Table_0_previous">Previous</a>
+      <div className="ui-toolbar ui-widget-header">
+        <div className="dataTables_paginate" onClick={_handlePageChange}>
+          <a className={`first ui-button ${currentPage == 1 ? 'ui-state-disabled' : ''}`} data-page="First">First</a>
+          <a className={`ui-button ${currentPage == 1 ? 'ui-state-disabled' : ''}`} data-page="Previous">Previous</a>
           <span>
-            <a tabindex="0" className="fg-button ui-button ui-state-default ui-state-disabled">1</a>
-            <a tabindex="0" className="fg-button ui-button ui-state-default">2</a>
-            <a tabindex="0" className="fg-button ui-button ui-state-default">3</a>
-            <a tabindex="0" className="fg-button ui-button ui-state-default">4</a>
-            <a tabindex="0" className="fg-button ui-button ui-state-default">5</a>
+            { pageItem }
           </span>
-          <a tabindex="0" className="next fg-button ui-button ui-state-default" id="DataTables_Table_0_next">Next</a>
-          <a tabindex="0" className="last ui-corner-tr ui-corner-br fg-button ui-button ui-state-default" id="DataTables_Table_0_last">Last</a>
+          <a className={`ui-button ${currentPage == totalPage ? 'ui-state-disabled' : ''}`} data-page="Next">Next</a>
+          <a className={`last ui-button ${currentPage == totalPage ? 'ui-state-disabled' : ''}`} data-page="Last">Last</a>
         </div>
       </div>
     )

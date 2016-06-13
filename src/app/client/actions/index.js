@@ -1,4 +1,3 @@
-import { checkHttpStatus, parseJSON } from '../utils'
 import * as types from '../constants/actionTypes'
 import fetch from 'isomorphic-fetch'
 
