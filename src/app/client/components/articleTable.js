@@ -51,30 +51,22 @@ export default class ArticleTable extends Component {
       )
     })
     return (
-    	<div className="widget-box">
-        <div className="widget-title">
-          <span className="icon">
-            <i className="icon-th"></i>
-          </span>
-          <h5>{tableTitle}</h5>
-        </div>
-        <div className="widget-content nopadding">
-          <table className="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th width="20%">文章标题</th>
-                <th width="5%">分类</th>
-                <th width="20%">图片名称</th>
-                <th width="50%">概要</th>
-                <th width="5%">操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              {trItem}
-            </tbody>
-          </table>
-          <Paginate currentPage={this.state.currentPage} totalPage={totalPage} listLength={articles.length} _handlePageChange={this._handlePageChange} />
-        </div>
+      <div>
+        <table className="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th width="20%">文章标题</th>
+              <th width="5%">分类</th>
+              <th width="20%">图片名称</th>
+              <th width="50%">概要</th>
+              <th width="5%">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {trItem}
+          </tbody>
+        </table>
+        <Paginate currentPage={this.state.currentPage} totalPage={totalPage} listLength={articles.length} _handlePageChange={this._handlePageChange} />
       </div>
     )
   }

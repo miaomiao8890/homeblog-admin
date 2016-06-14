@@ -32,7 +32,7 @@ gulp.task('copy', function () {
     '!dist/*.html',
     '!dist/js/*',
     '!dist/css/*',
-    'node_modules/bootstrap/dist/css/bootstrap.min.css'
+    'static/css/bootstrap.min.css'
   ], {
     dot: true
   })

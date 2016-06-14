@@ -17,7 +17,7 @@ export default class Navbar extends Component {
 	      <ul>
 	        <li ref="dashboard"><Link to='/admin/'><i className="icon icon-home"></i> <span>Dashboard</span></Link></li>
 	        <li ref="articleList"><Link to="/admin/article/list"><i className="icon icon-th"></i> <span>Article List</span></Link></li>
-	        <li ref="articleEdit"><Link to="/"><i className="icon icon-pencil"></i> <span>Article Edit</span></Link></li>
+	        <li ref="articleAdd"><Link to="/admin/article/add"><i className="icon icon-pencil"></i> <span>Article Add</span></Link></li>
 	      </ul>
 	    </div>
     )

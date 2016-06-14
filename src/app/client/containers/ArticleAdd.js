@@ -4,49 +4,38 @@ import * as ArticleActions from "../actions";
 import { bindActionCreators } from "redux";
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
-import ArticleTable from '../components/ArticleTable';
+import ArticleForm from '../components/ArticleForm';
 
 class ArticleList extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillMount() {
-    if (this.props.articles.length == 0) {
-      this.props.actions.fetchArticles();
-    }
-  }
-
   render() {
-    const navName = 'articleList';
-    const perPage = 10;
-    let totalPage = Math.ceil(this.props.articles.length / perPage);
+    const navName = 'articleAdd';
     return (
       <div>
         <Header />
         <Navbar navName={navName} />
         <div className="admin-content">
           <div className="content-header">
-            <h1>Article List</h1>
+            <h1>Article Add</h1>
           </div>
           <div className="content-breadcrumb">
             <a className="tip-bottom"><i className="icon-home"></i> Home</a>
-            <a className="current">Article List</a>
+            <a className="current">Article Add</a>
           </div>
           <div className="container-fluid">
-            <div className="content-loading" style={{ display: this.props.isFetching ? 'block' : 'none' }}>
-              <img src="/images/loading-big.gif" />
-            </div>
-            <div className="row-fluid" style={{ display: this.props.isFetching ? 'none' : 'block' }}>
+            <div className="row-fluid">
               <div className="widget-box">
                 <div className="widget-title">
                   <span className="icon">
                     <i className="icon-th"></i>
                   </span>
-                  <h5>Article List</h5>
+                  <h5>Article Add</h5>
                 </div>
                 <div className="widget-content nopadding">
-                  <ArticleTable articles={this.props.articles} perPage={perPage} totalPage={totalPage} />
+                  <ArticleForm />
                 </div>
               </div>
             </div>

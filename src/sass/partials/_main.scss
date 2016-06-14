@@ -465,15 +465,16 @@ html, body, #root, .App {
         border-collapse: collapse;
         table-layout:fixed;
         td {
-          height: 34px;
+          // height: 34px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          vertical-align: middle;
         }
         .taskOptions {
           @extend td;
           text-align: center;
-          line-height: 34px;
+          // line-height: 34px;
           a {
             margin: 0 5px;
           }
@@ -482,7 +483,35 @@ html, body, #root, .App {
     }
   }
 }
-/* paginate */
+/* Form */
+.form-horizontal {
+  .control-group {
+    border-top: 1px solid #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 0;
+  }
+  .control-label {
+    padding-top: 15px;
+    width: 180px;
+  }
+  .controls {
+    margin-left: 200px;
+    padding: 10px 0;
+  }
+  input[type=text],
+  input[type=password],
+  textarea {
+    width: 80%;
+  }
+  textarea {
+    min-height: 300px;
+  }
+  .form-actions {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+/* Paginate */
 .ui-widget-header {
   border-right: medium none;
   border-top: 1px solid #D5D5D5;
