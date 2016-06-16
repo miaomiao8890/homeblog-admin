@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Paginate from './Paginate';
 
 export default class ArticleTable extends Component {
@@ -34,7 +34,7 @@ export default class ArticleTable extends Component {
     }
   }
   render() {
-    const { tableTitle, perPage, articles, totalPage } = this.props;
+    const { perPage, articles, totalPage } = this.props;
     let items = articles.slice((this.state.currentPage - 1) * perPage, this.state.currentPage * perPage);
     let trItem = items.map(article => {
       return (
@@ -70,4 +70,10 @@ export default class ArticleTable extends Component {
       </div>
     )
   }
+}
+
+ArticleTable.propTypes = {
+  perPage: PropTypes.number.isRequired,
+  articles: PropTypes.array.isRequired,
+  totalPage: PropTypes.number.isRequired
 }

@@ -1,4 +1,5 @@
 var Article = require("../models/article");
+var _ = require("underscore");
 
 // //注册
 // exports.showSignup = function(req, res){
@@ -103,6 +104,39 @@ exports.getArticleAll = function(req, res) {
     res.json({
       status_code: 200,
       result: articles
+    });
+  });
+}
+
+exports.addArticle = function(req, res){
+  var articleObj = req.body;
+  var _article;
+
+  _article = new Article(articleObj);
+
+  _article.save(function(err, article){
+    if(err){
+      console.log(err);
+    }
+    res.json({message: "success", data:{}});
+  });
+}
+
+exports.updateArticle = function(req, res){
+  var articleObj = req.body;
+  var _article;
+
+  Article.findById(id, function(err, article){
+    if(err){
+      console.log(err)
+    }
+
+    _article = _.extend(article, articleObj);
+    _article.save(function(err, article){
+      if(err){
+        console.log(err);
+      }
+      // res.json({message: "success", data:{}}});
     });
   });
 }

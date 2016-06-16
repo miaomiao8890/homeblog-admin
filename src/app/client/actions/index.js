@@ -17,7 +17,7 @@ export function fetchArticles() {
   return function (dispatch) {
   	dispatch(dataLoading());
 
-  	return fetch("/getArticleAll", {
+  	return fetch("/articles", {
       credentials: 'include',
       headers: {
         'Accept': 'application/json',

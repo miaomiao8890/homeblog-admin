@@ -131,6 +131,7 @@
     "redux": "^3.0.4",
     "redux-async-connect": "^1.0.0-rc4",
     "redux-devtools": "^2.1.5",
+    "redux-form": "^5.2.5",
     "redux-router": "^1.0.0-beta8",
     "redux-thunk": "^1.0.0",
     "serialize-javascript": "^1.2.0",

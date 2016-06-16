@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {Link} from 'react-router';
 
 export default class Navbar extends Component {
@@ -22,4 +22,8 @@ export default class Navbar extends Component {
 	    </div>
     )
   }
+}
+
+Navbar.propTypes = {
+  navName: PropTypes.string.isRequired
 }

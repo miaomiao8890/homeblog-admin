@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Paginate extends Component {
   constructor(props) {
@@ -36,4 +36,11 @@ export default class Paginate extends Component {
       </div>
     )
   }
+}
+
+Paginate.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPage: PropTypes.number.isRequired,
+  listLength: PropTypes.number.isRequired,
+  _handlePageChange: PropTypes.func.isRequired
 }

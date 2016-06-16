@@ -57,6 +57,12 @@ class ArticleList extends Component {
   }
 }
 
+ArticleList.propTypes = {
+  articles: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
 export default connect(state => ({
   articles: state.article.articles,
   isFetching: state.uiState.isFetching,

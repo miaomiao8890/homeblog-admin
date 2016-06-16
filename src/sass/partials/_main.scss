@@ -497,6 +497,11 @@ html, body, #root, .App {
   .controls {
     margin-left: 200px;
     padding: 10px 0;
+    .form-error-tips {
+      display: inline-block;
+      margin-left: 20px;
+      color: #a94442;
+    }
   }
   input[type=text],
   input[type=password],

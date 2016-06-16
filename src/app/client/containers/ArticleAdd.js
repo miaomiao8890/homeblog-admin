@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import ArticleForm from '../components/ArticleForm';
 
-class ArticleList extends Component {
+class ArticleAdd extends Component {
   constructor(props) {
     super(props);
   }
@@ -46,9 +46,10 @@ class ArticleList extends Component {
   }
 }
 
-export default connect(state => ({
-  articles: state.article.articles,
-  isFetching: state.uiState.isFetching,
-}), dispatch => ({
+ArticleAdd.propTypes = {
+  actions: PropTypes.object.isRequired
+}
+
+export default connect(state => ({}), dispatch => ({
   actions: bindActionCreators(ArticleActions, dispatch)
-}))(ArticleList)
+}))(ArticleAdd)
