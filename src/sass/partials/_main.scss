@@ -503,6 +503,15 @@ html, body, #root, .App {
       color: #a94442;
     }
   }
+  .form-error {
+    @extend .control-group;
+    input {
+      border-color: #a94442;
+    }
+    textarea {
+      border-color: #a94442;
+    }
+  }
   input[type=text],
   input[type=password],
   textarea {
@@ -566,10 +575,10 @@ html, body, #root, .App {
     text-decoration: none;
   }
   .first{
-    border-radius: 4px 0 0 4px;    
+    border-radius: 4px 0 0 4px;
   }
   .last {
-    border-radius: 0 4px 4px 0;    
+    border-radius: 0 4px 4px 0;
   }
   .ui-state-disabled,
   .fc-state-disabled,

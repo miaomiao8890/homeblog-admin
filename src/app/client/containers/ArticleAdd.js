@@ -9,6 +9,11 @@ import ArticleForm from '../components/ArticleForm';
 class ArticleAdd extends Component {
   constructor(props) {
     super(props);
+    this._handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  _handleSubmit(data) {
+    console.log(data)
   }
 
   render() {
@@ -35,7 +40,7 @@ class ArticleAdd extends Component {
                   <h5>Article Add</h5>
                 </div>
                 <div className="widget-content nopadding">
-                  <ArticleForm />
+                  <ArticleForm onSubmit={this._handleSubmit} />
                 </div>
               </div>
             </div>

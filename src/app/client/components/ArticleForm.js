@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form'
-export const fields = [ 'title' ]
+export const fields = [ 'title', 'context' ]
 
 const validate = values => {
   const errors = {}
@@ -8,6 +8,9 @@ const validate = values => {
     errors.title = 'Required'
   } else if (values.title.length > 15) {
     errors.title = 'Must be 15 characters or less'
+  }
+  if (!values.context) {
+    errors.context = 'Required'
   }
   return errors
 }
@@ -17,10 +20,10 @@ class ArticleForm extends Component {
     super(props);
   }
   render() {
-  	const { fields: { title }, handleSubmit, submitting } = this.props
+  	const { fields: { title, context }, handleSubmit, submitting } = this.props
   	return (
   		<form className="form-horizontal" onSubmit={handleSubmit}>
-				<div className="control-group">
+				<div className={`control-group ${title.touched && title.error && 'form-error'}`}>
 					<label className="control-label">文章标题</label>
 					<div className="controls">
 						<input type="text" {...title} />
@@ -45,10 +48,11 @@ class ArticleForm extends Component {
 						<input type="text" />
 					</div>
 				</div>
-				<div className="control-group">
+				<div className={`control-group ${context.touched && context.error && 'form-error'}`}>
 					<label className="control-label">内容</label>
 					<div className="controls">
-						<textarea></textarea>
+						<textarea {...context}></textarea>
+						{context.touched && context.error && <div className="form-error-tips">{context.error}</div>}
 					</div>
 				</div>
 				<div className="form-actions">
@@ -60,7 +64,7 @@ class ArticleForm extends Component {
 }
 
 ArticleForm.propTypes = {
-  article: PropTypes.object.isRequired,
+  fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
