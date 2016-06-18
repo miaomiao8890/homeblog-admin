@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form'
-export const fields = [ 'title', 'context' ]
+export const fields = [ 'title', 'category', 'previewimg', 'summary', 'context' ]
 
 const validate = values => {
   const errors = {}
@@ -8,6 +8,9 @@ const validate = values => {
     errors.title = 'Required'
   } else if (values.title.length > 15) {
     errors.title = 'Must be 15 characters or less'
+  }
+  if (!values.summary) {
+    errors.summary = 'Required'
   }
   if (!values.context) {
     errors.context = 'Required'
@@ -19,8 +22,11 @@ class ArticleForm extends Component {
 	constructor(props) {
     super(props);
   }
+  componentWillMount() {
+    this.props.initializeForm(this.props.initializeData);
+	}
   render() {
-  	const { fields: { title, context }, handleSubmit, submitting } = this.props
+  	const { fields: { title, category, previewimg, summary, context }, handleSubmit, submitting, data } = this.props
   	return (
   		<form className="form-horizontal" onSubmit={handleSubmit}>
 				<div className={`control-group ${title.touched && title.error && 'form-error'}`}>
@@ -33,19 +39,20 @@ class ArticleForm extends Component {
 				<div className="control-group">
 					<label className="control-label">分类</label>
 					<div className="controls">
-						<input type="text" />
+						<input type="text" {...category} />
 					</div>
 				</div>
 				<div className="control-group">
 					<label className="control-label">预览图片地址</label>
 					<div className="controls">
-						<input type="text" />
+						<input type="text"  {...previewimg} />
 					</div>
 				</div>
-				<div className="control-group">
+				<div className={`control-group ${summary.touched && summary.error && 'form-error'}`}>
 					<label className="control-label">概要</label>
 					<div className="controls">
-						<input type="text" />
+						<input type="text"  {...summary} />
+						{summary.touched && summary.error && <div className="form-error-tips">{summary.error}</div>}
 					</div>
 				</div>
 				<div className={`control-group ${context.touched && context.error && 'form-error'}`}>

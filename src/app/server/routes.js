@@ -5,4 +5,5 @@ module.exports = function(app){
   // API
   app.get("/articles", Admin.getArticleAll);
   app.post("/articles", Admin.addArticle);
+  app.delete("/articles/:id", Admin.deleteArticle);
 }

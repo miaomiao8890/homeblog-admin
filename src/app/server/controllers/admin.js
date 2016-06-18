@@ -110,16 +110,40 @@ exports.getArticleAll = function(req, res) {
 
 exports.addArticle = function(req, res){
   var articleObj = req.body;
-  var _article;
+  if(req.body.title == '') {
+    res.json({
+      status_code: 400,
+      // result: article
+    });
+  } else {
+    var _article;
 
-  _article = new Article(articleObj);
+    _article = new Article(articleObj);
 
-  _article.save(function(err, article){
-    if(err){
-      console.log(err);
-    }
-    res.json({message: "success", data:{}});
-  });
+    _article.save(function(err, article){
+      if(err){
+        console.log(err);
+      }
+      res.json({
+        status_code: 200,
+        result: article
+      });
+    });
+  }
+}
+
+exports.deleteArticle = function(req, res){
+  var id = req.params.id;
+  if(id){
+    Article.remove({_id: id},function(err, article){
+      if(err){
+        console.log(err);
+      }else{
+        res.json({success: 1});
+      }
+
+    })
+  }
 }
 
 exports.updateArticle = function(req, res){

@@ -9,12 +9,19 @@ import ArticleTable from '../components/ArticleTable';
 class ArticleList extends Component {
   constructor(props) {
     super(props);
+    this._handleDelete = this._handleDelete.bind(this);
   }
 
   componentWillMount() {
     if (this.props.articles.length == 0) {
       this.props.actions.fetchArticles();
     }
+  }
+
+  _handleDelete(evt) {
+    let id = evt.target.dataset.id;
+    console.log(evt.target)
+    this.props.actions.deleteArticle(id);
   }
 
   render() {
@@ -46,7 +53,7 @@ class ArticleList extends Component {
                   <h5>Article List</h5>
                 </div>
                 <div className="widget-content nopadding">
-                  <ArticleTable articles={this.props.articles} perPage={perPage} totalPage={totalPage} />
+                  <ArticleTable articles={this.props.articles} perPage={perPage} totalPage={totalPage} handleDelete={this._handleDelete} />
                 </div>
               </div>
             </div>

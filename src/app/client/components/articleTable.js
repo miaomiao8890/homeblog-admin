@@ -34,18 +34,18 @@ export default class ArticleTable extends Component {
     }
   }
   render() {
-    const { perPage, articles, totalPage } = this.props;
+    const { perPage, articles, totalPage, handleDelete } = this.props;
     let items = articles.slice((this.state.currentPage - 1) * perPage, this.state.currentPage * perPage);
     let trItem = items.map(article => {
       return (
-        <tr key={article.id}>
+        <tr key={article._id}>
           <td>{article.title}</td>
           <td>{article.category}</td>
           <td>{article.previewimg}</td>
           <td title={article.summary}>{article.summary}</td>
           <td className="taskOptions">
             <a href="#"><i className="icon-pencil"></i></a>
-            <a href="#"><i className="icon-remove"></i></a>
+            <a><i className="icon-remove" onClick={handleDelete} data-id={article._id}></i></a>
           </td>
         </tr>
       )
