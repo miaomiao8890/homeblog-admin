@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import ArticleTable from '../components/ArticleTable';
+import { hashHistory } from 'react-router';
 
 class ArticleList extends Component {
   constructor(props) {
@@ -13,9 +14,16 @@ class ArticleList extends Component {
   }
 
   componentWillMount() {
+    this._test()
     if (this.props.articles.length == 0) {
       this.props.actions.fetchArticles();
     }
+  }
+  _test() {
+    console.log(this.props.history)
+    // hashHistory.push('/admin/article/add')
+    this.props.history.push('/admin/article/add')
+
   }
 
   _handleDelete(evt) {

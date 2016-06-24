@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 
 class Home extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     const navName = 'dashboard';
     return (
       <div>
-        <Header />
         <Navbar navName={navName} />
         <div className="admin-content">
           <div className="content-header">

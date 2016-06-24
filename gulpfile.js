@@ -69,10 +69,10 @@ gulp.task('minifycss', function() {
 
 gulp.task('minifyjs', function () {
   return gulp.src(['static/js/*.js'])
-      .pipe($.uglify({
+      // .pipe($.uglify({
           // mangle: true,
           // compress: true
-      }))
+      // }))
       .pipe(gulp.dest('dist/js'));
 });
 

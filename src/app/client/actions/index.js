@@ -1,6 +1,6 @@
 import * as types from '../constants/actionTypes'
-import { push } from 'react-router-redux';
-import fetch from 'isomorphic-fetch'
+import { push } from 'react-router-redux'
+import fetch from 'isomorphic-fetch' 
 
 export function fetchArticles() {
   return function (dispatch) {
@@ -118,6 +118,6 @@ function articlesUpdated(article) {
 }
 
 function navigateToArticleList() {
-  console.log('test')
+  console.log(push)
   return push("/admin/article/list");
 }
