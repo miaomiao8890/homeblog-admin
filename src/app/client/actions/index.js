@@ -1,5 +1,4 @@
 import * as types from '../constants/actionTypes'
-import { push } from 'react-router-redux'
 import fetch from 'isomorphic-fetch' 
 
 export function fetchArticles() {
@@ -50,9 +49,9 @@ export function createArticle(article) {
     .then(data => {
       if (data.status_code == 200) {
         try {
-          dispatch(articlesUpdated(data.result));
-          dispatch(dataLoaded());
-          dispatch(navigateToArticleList());
+          dispatch(articlesCreated(data.result));
+          // dispatch(dataLoaded());
+          // dispatch(navigateToArticleList());
         } catch (e) {
           // dispatch(dataLoadedFailure());
         }
@@ -107,6 +106,13 @@ function articlesFetched(articles) {
   return {
     type: types.ARTICLES_FETCHED,
     articles: articles
+  }
+}
+
+function articlesCreated(article) {
+  return {
+    type: types.ARTICLES_CREATED,
+    article: article
   }
 }
 

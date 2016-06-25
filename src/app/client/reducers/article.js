@@ -6,8 +6,15 @@ const initialState = {
 
 export default function article(state = initialState, action) {
   switch (action.type) {
+    case types.ARTICLES_CREATED:
+      Object.assign({}, state, {
+        articles: action.article
+      });
+      return state
     case types.ARTICLES_UPDATED:
-      state.articles.unshift(action.article)
+      Object.assign({}, state, {
+        articles: action.article
+      });
       return state
     case types.ARTICLES_FETCHED:
       return Object.assign({}, state, {

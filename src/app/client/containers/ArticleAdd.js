@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar';
 import ArticleForm from '../components/ArticleForm';
 
 const initializeData = {
-  title: '',
+  title: '123',
   category: '',
   previewimg: '',
   summary: '',
