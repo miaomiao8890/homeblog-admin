@@ -66,7 +66,7 @@ export default class ArticleTable extends Component {
             {trItem}
           </tbody>
         </table>
-        <Paginate currentPage={this.state.currentPage} totalPage={totalPage} listLength={articles.length} _handlePageChange={this._handlePageChange} />
+        <Paginate currentPage={this.state.currentPage} totalPage={totalPage} listLength={articles.length} handlePageChange={this._handlePageChange} />
       </div>
     )
   }

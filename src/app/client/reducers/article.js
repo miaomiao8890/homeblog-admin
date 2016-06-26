@@ -9,9 +9,7 @@ export default function article(state = List(), action) {
       }
       return state
     case types.ARTICLES_DELETED:
-      return state.filter(article => {
-        article.get('_id') !== action.article._id;
-      })
+      return state.filter(article => article._id != action.id)
     case types.ARTICLES_UPDATED:
       return Object.assign({}, state, {
         articles: action.article

@@ -6,7 +6,7 @@ export default class Paginate extends Component {
   }
 
   render() {
-    const { currentPage, totalPage, listLength, _handlePageChange } = this.props;
+    const { currentPage, totalPage, listLength, handlePageChange } = this.props;
     let pageList = [];
     let pageNum = totalPage > 5 ? 5 : totalPage;
     for (var i = 1; i <= pageNum; i++) {
@@ -24,7 +24,7 @@ export default class Paginate extends Component {
     })
     return (
       <div className="ui-toolbar ui-widget-header">
-        <div className="dataTables_paginate" onClick={_handlePageChange}>
+        <div className="dataTables_paginate" onClick={handlePageChange}>
           <a className={`first ui-button ${currentPage == 1 ? 'ui-state-disabled' : ''}`} data-page="First">First</a>
           <a className={`ui-button ${currentPage == 1 ? 'ui-state-disabled' : ''}`} data-page="Previous">Previous</a>
           <span>
@@ -42,5 +42,5 @@ Paginate.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPage: PropTypes.number.isRequired,
   listLength: PropTypes.number.isRequired,
-  _handlePageChange: PropTypes.func.isRequired
+  handlePageChange: PropTypes.func.isRequired
 }

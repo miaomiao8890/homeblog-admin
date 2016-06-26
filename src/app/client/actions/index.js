@@ -65,7 +65,7 @@ export function createArticle(article) {
 
 export function deleteArticle(id) {
   return function (dispatch) {
-    // dispatch(dataLoading());
+    dispatch(dataLoading());
 
     return fetch('/articles/' + id, {
       method: 'DELETE'
@@ -77,7 +77,7 @@ export function deleteArticle(id) {
       if (data.status_code == 200) {
         try {
           console.log('delete')
-          dispatch(articlesDeleted(data.result));
+          dispatch(articlesDeleted(id));
           dispatch(dataLoaded());
           // dispatch(navigateToArticleList());
         } catch (e) {
@@ -148,9 +148,9 @@ function articlesUpdated(article) {
   }
 }
 
-function articlesDeleted(article) {
+function articlesDeleted(id) {
   return {
     type: types.ARTICLES_DELETED,
-    article: article
+    id
   }
 }
