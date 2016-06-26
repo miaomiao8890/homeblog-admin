@@ -5,19 +5,39 @@ import { bindActionCreators } from "redux";
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
 import ArticleForm from '../components/ArticleForm';
+import Rconfirm from "../components/Rconfirm";
 
-const initializeData = {
-  title: '123',
-  category: '',
-  previewimg: '',
-  summary: '',
-  context: ''
-}
+let confirm = null;
 
 class ArticleAdd extends Component {
   constructor(props) {
     super(props);
     this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleConfirm = this._handleConfirm.bind(this);
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   let _this = this;
+  //   console.log(nextProps)
+  //   if (nextProps.isShowConfirm) {
+  //     const confirmProps = {
+  //       title: 'Setting',
+  //       content: (<p>added successfull</p>),
+  //       confirmBtn: true,
+  //       cancelBtn: false,
+  //       confirmCallback: _this._handleConfirm,
+  //       autoClose: 4000
+  //     }
+  //     console.log('new')
+  //     confirm = (
+  //       <Rconfirm {...confirmProps} />
+  //     )
+  //   }
+  // }
+
+  _handleConfirm() {
+    this.props.history.push('/admin/article/list');
+    this.props.actions.hideConfirm()
   }
 
   _handleSubmit(data) {
@@ -26,7 +46,22 @@ class ArticleAdd extends Component {
 
   render() {
     const navName = 'articleAdd';
-
+    const { isSaving, isShowConfirm } = this.props;
+    const initializeData = {
+      title: '',
+      category: '',
+      previewimg: '',
+      summary: '',
+      context: ''
+    };
+    const confirmProps = {
+      title: 'Setting',
+      content: (<p>added successfull</p>),
+      confirmBtn: true,
+      cancelBtn: false,
+      confirmCallback: this._handleConfirm,
+      autoClose: 4000
+    }
     return (
       <div>
         <Header />
@@ -49,21 +84,27 @@ class ArticleAdd extends Component {
                   <h5>Article Add</h5>
                 </div>
                 <div className="widget-content nopadding">
-                  <ArticleForm onSubmit={this._handleSubmit} initializeData={initializeData} />
+                  <ArticleForm onSubmit={this._handleSubmit} initializeData={initializeData} isSaving={isSaving} />
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <Rconfirm style={{display: isShowConfirm ? 'block' : 'none'}} {...confirmProps} />
       </div>
     )
   }
 }
 
 ArticleAdd.propTypes = {
+  isSaving: PropTypes.bool.isRequired,
+  isShowConfirm: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired
 }
 
-export default connect(state => ({}), dispatch => ({
+export default connect(state => ({
+  isSaving: state.uiState.isSaving,
+  isShowConfirm: state.uiState.isShowConfirm
+}), dispatch => ({
   actions: bindActionCreators(ArticleActions, dispatch)
 }))(ArticleAdd)

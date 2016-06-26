@@ -1,25 +1,24 @@
 import * as types from '../constants/actionTypes'
+import { List } from "immutable";
 
-const initialState = {
-  articles: []
-}
-
-export default function article(state = initialState, action) {
+export default function article(state = List(), action) {
   switch (action.type) {
     case types.ARTICLES_CREATED:
-      Object.assign({}, state, {
-        articles: action.article
-      });
+      if (state.size > 0) {
+        return state.unshift(action.article)
+      }
       return state
+    case types.ARTICLES_DELETED:
+      return state.filter(article => {
+        article.get('_id') !== action.article._id;
+      })
     case types.ARTICLES_UPDATED:
-      Object.assign({}, state, {
+      return Object.assign({}, state, {
         articles: action.article
       });
-      return state
     case types.ARTICLES_FETCHED:
-      return Object.assign({}, state, {
-        articles: action.articles
-      });
+      state = List(action.articles);
+      return state
     default:
       return state
   }

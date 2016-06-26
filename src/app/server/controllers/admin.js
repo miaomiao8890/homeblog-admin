@@ -139,7 +139,10 @@ exports.deleteArticle = function(req, res){
       if(err){
         console.log(err);
       }else{
-        res.json({success: 1});
+        res.json({
+          status_code: 200,
+          result: article
+        });
       }
 
     })

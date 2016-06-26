@@ -26,7 +26,7 @@ class ArticleForm extends Component {
     this.props.initializeForm(this.props.initializeData);
 	}
   render() {
-  	const { fields: { title, category, previewimg, summary, context }, handleSubmit, submitting, data } = this.props
+  	const { fields: { title, category, previewimg, summary, context }, handleSubmit, submitting, isSaving, data } = this.props
   	return (
   		<form className="form-horizontal" onSubmit={handleSubmit}>
 				<div className={`control-group ${title.touched && title.error && 'form-error'}`}>
@@ -63,7 +63,7 @@ class ArticleForm extends Component {
 					</div>
 				</div>
 				<div className="form-actions">
-					<button type="submit" className="btn btn-primary">Save</button>
+					<button type="submit" className={`btn btn-inverse ${isSaving ? 'disabled' : ''}`} disabled={isSaving}>Save</button>
 				</div>
 			</form>
   	)

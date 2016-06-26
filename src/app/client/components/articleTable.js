@@ -75,5 +75,6 @@ export default class ArticleTable extends Component {
 ArticleTable.propTypes = {
   perPage: PropTypes.number.isRequired,
   articles: PropTypes.array.isRequired,
-  totalPage: PropTypes.number.isRequired
+  totalPage: PropTypes.number.isRequired,
+  handleDelete: PropTypes.func.isRequired
 }

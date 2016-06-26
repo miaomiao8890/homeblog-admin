@@ -14,7 +14,7 @@ class ArticleList extends Component {
 
   componentWillMount() {
     this._test()
-    if (this.props.articles.length == 0) {
+    if (this.props.articles.size == 0) {
       this.props.actions.fetchArticles();
     }
   }
@@ -25,14 +25,14 @@ class ArticleList extends Component {
 
   _handleDelete(evt) {
     let id = evt.target.dataset.id;
-    console.log(evt.target)
     this.props.actions.deleteArticle(id);
   }
 
   render() {
     const navName = 'articleList';
     const perPage = 10;
-    let totalPage = Math.ceil(this.props.articles.length / perPage);
+    let articles = this.props.articles.toArray();
+    let totalPage = Math.ceil(articles.length / perPage);
     return (
       <div>
         <Header />
@@ -58,7 +58,7 @@ class ArticleList extends Component {
                   <h5>Article List</h5>
                 </div>
                 <div className="widget-content nopadding">
-                  <ArticleTable articles={this.props.articles} perPage={perPage} totalPage={totalPage} handleDelete={this._handleDelete} />
+                  <ArticleTable articles={articles} perPage={perPage} totalPage={totalPage} handleDelete={this._handleDelete} />
                 </div>
               </div>
             </div>
@@ -70,13 +70,13 @@ class ArticleList extends Component {
 }
 
 ArticleList.propTypes = {
-  articles: PropTypes.array.isRequired,
+  articles: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired
 }
 
 export default connect(state => ({
-  articles: state.article.articles,
+  articles: state.article,
   isFetching: state.uiState.isFetching,
 }), dispatch => ({
   actions: bindActionCreators(ArticleActions, dispatch)

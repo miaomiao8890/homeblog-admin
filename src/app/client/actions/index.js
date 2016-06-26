@@ -33,7 +33,7 @@ export function fetchArticles() {
 
 export function createArticle(article) {
   return function (dispatch) {
-    dispatch(dataLoading());
+    dispatch(dataSaving());
 
     return fetch('/articles', {
       method: 'POST',
@@ -50,8 +50,8 @@ export function createArticle(article) {
       if (data.status_code == 200) {
         try {
           dispatch(articlesCreated(data.result));
-          // dispatch(dataLoaded());
-          // dispatch(navigateToArticleList());
+          dispatch(dataSaved());
+          dispatch(showConfirm());
         } catch (e) {
           // dispatch(dataLoadedFailure());
         }
@@ -65,7 +65,7 @@ export function createArticle(article) {
 
 export function deleteArticle(id) {
   return function (dispatch) {
-    dispatch(dataLoading());
+    // dispatch(dataLoading());
 
     return fetch('/articles/' + id, {
       method: 'DELETE'
@@ -76,7 +76,8 @@ export function deleteArticle(id) {
     .then(data => {
       if (data.status_code == 200) {
         try {
-          // dispatch(articleUpdated(data.result));
+          console.log('delete')
+          dispatch(articlesDeleted(data.result));
           dispatch(dataLoaded());
           // dispatch(navigateToArticleList());
         } catch (e) {
@@ -90,6 +91,18 @@ export function deleteArticle(id) {
   }
 }
 
+export function showConfirm() {
+  return {
+    type: types.SHOW_CONFIRM
+  }
+}
+
+export function hideConfirm() {
+  return {
+    type: types.HIDE_CONFIRM
+  }
+}
+
 function dataLoading() {
   return {
     type: types.DATA_LOADING
@@ -99,6 +112,18 @@ function dataLoading() {
 function dataLoaded() {
   return {
     type: types.DATA_LOADED
+  }
+}
+
+function dataSaving() {
+  return {
+    type: types.DATA_SAVING
+  }
+}
+
+function dataSaved() {
+  return {
+    type: types.DATA_SAVED
   }
 }
 
@@ -123,7 +148,9 @@ function articlesUpdated(article) {
   }
 }
 
-function navigateToArticleList() {
-  console.log(push)
-  return push("/admin/article/list");
+function articlesDeleted(article) {
+  return {
+    type: types.ARTICLES_DELETED,
+    article: article
+  }
 }
