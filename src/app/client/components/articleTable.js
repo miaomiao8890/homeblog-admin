@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import {Link} from 'react-router';
 import Paginate from './Paginate';
 
 export default class ArticleTable extends Component {
@@ -44,7 +45,7 @@ export default class ArticleTable extends Component {
           <td>{article.previewimg}</td>
           <td title={article.summary}>{article.summary}</td>
           <td className="taskOptions">
-            <a href="#"><i className="icon-pencil"></i></a>
+            <Link to={`/admin/article/edit/${article._id}`}><i className="icon-pencil"></i></Link>
             <a><i className="icon-remove" onClick={handleDelete} data-id={article._id}></i></a>
           </td>
         </tr>

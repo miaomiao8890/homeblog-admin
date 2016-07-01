@@ -31,6 +31,36 @@ export function fetchArticles() {
   }
 }
 
+export function fetchArticle(id) {
+  return function (dispatch) {
+    dispatch(dataLoading());
+
+    return fetch('/article/' + id, {
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if (data.status_code == 200) {
+        try {
+          dispatch(articleFetched(data.result));
+          dispatch(dataLoaded());
+        } catch (e) {
+          // dispatch(dataLoadedFailure());
+        }
+      }
+    })
+    .catch(error => {
+      // dispatch(dataLoadedFailure());
+    })
+  }
+}
+
 export function createArticle(article) {
   return function (dispatch) {
     dispatch(dataSaving());
@@ -76,9 +106,9 @@ export function deleteArticle(id) {
     .then(data => {
       if (data.status_code == 200) {
         try {
-          console.log('delete')
           dispatch(articlesDeleted(id));
           dispatch(dataLoaded());
+          dispatch(hideConfirm());
           // dispatch(navigateToArticleList());
         } catch (e) {
           // dispatch(dataLoadedFailure());
@@ -124,6 +154,13 @@ function dataSaving() {
 function dataSaved() {
   return {
     type: types.DATA_SAVED
+  }
+}
+
+function articleFetched(article) {
+  return {
+    type: types.ARTICLE_FETCHED,
+    article: article
   }
 }
 

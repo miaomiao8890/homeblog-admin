@@ -7,33 +7,12 @@ import Navbar from '../components/Navbar';
 import ArticleForm from '../components/ArticleForm';
 import Rconfirm from "../components/Rconfirm";
 
-let confirm = null;
-
 class ArticleAdd extends Component {
   constructor(props) {
     super(props);
     this._handleSubmit = this._handleSubmit.bind(this);
     this._handleConfirm = this._handleConfirm.bind(this);
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   let _this = this;
-  //   console.log(nextProps)
-  //   if (nextProps.isShowConfirm) {
-  //     const confirmProps = {
-  //       title: 'Setting',
-  //       content: (<p>added successfull</p>),
-  //       confirmBtn: true,
-  //       cancelBtn: false,
-  //       confirmCallback: _this._handleConfirm,
-  //       autoClose: 4000
-  //     }
-  //     console.log('new')
-  //     confirm = (
-  //       <Rconfirm {...confirmProps} />
-  //     )
-  //   }
-  // }
 
   _handleConfirm() {
     this.props.history.push('/admin/article/list');
@@ -55,8 +34,8 @@ class ArticleAdd extends Component {
       context: ''
     };
     const confirmProps = {
-      title: 'Setting',
-      content: (<p>added successfull</p>),
+      title: '提示',
+      content: (<p>添加成功！</p>),
       confirmBtn: true,
       cancelBtn: false,
       confirmCallback: this._handleConfirm,

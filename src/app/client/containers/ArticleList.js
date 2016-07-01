@@ -4,16 +4,21 @@ import * as ArticleActions from "../actions";
 import { bindActionCreators } from "redux";
 import Header from '../components/Header';
 import Navbar from '../components/Navbar';
+import Rconfirm from "../components/Rconfirm";
 import ArticleTable from '../components/ArticleTable';
 
 class ArticleList extends Component {
   constructor(props) {
     super(props);
-    this._handleDelete = this._handleDelete.bind(this);
+    this.state = {
+      itemId: ''
+    };
+    this._handleOpenConfirm = this._handleOpenConfirm.bind(this);
+    this._handleDeleteConfirm = this._handleDeleteConfirm.bind(this);
+    this._handleDeleteCancel = this._handleDeleteCancel.bind(this);
   }
 
   componentWillMount() {
-    this._test()
     if (this.props.articles.size == 0) {
       this.props.actions.fetchArticles();
     }
@@ -23,14 +28,34 @@ class ArticleList extends Component {
 
   }
 
-  _handleDelete(evt) {
+  _handleOpenConfirm(evt) {
     let id = evt.target.dataset.id;
-    this.props.actions.deleteArticle(id);
+    this.setState({itemId: id});
+    this.props.actions.showConfirm();
+  }
+
+  _handleDeleteConfirm() {
+    // console.log(this.state.itemId)
+    this.props.actions.deleteArticle(this.state.itemId);
+  }
+
+  _handleDeleteCancel() {
+    this.props.actions.hideConfirm();
   }
 
   render() {
     const navName = 'articleList';
     const perPage = 10;
+    const confirmProps = {
+      title: '提示',
+      content: (<p>您确定要删除吗？</p>),
+      confirmBtn: true,
+      cancelBtn: true,
+      confirmCallback: this._handleDeleteConfirm,
+      cancelCallback: this._handleDeleteCancel,
+      autoClose: false
+    }
+    const { isFetching, isShowConfirm } = this.props;
     let articles = this.props.articles.toArray();
     let totalPage = Math.ceil(articles.length / perPage);
     return (
@@ -46,10 +71,10 @@ class ArticleList extends Component {
             <a className="current">Article List</a>
           </div>
           <div className="container-fluid">
-            <div className="content-loading" style={{ display: this.props.isFetching ? 'block' : 'none' }}>
+            <div className="content-loading" style={{ display: isFetching ? 'block' : 'none' }}>
               <img src="/images/loading-big.gif" />
             </div>
-            <div className="row-fluid" style={{ display: this.props.isFetching ? 'none' : 'block' }}>
+            <div className="row-fluid" style={{ display: isFetching ? 'none' : 'block' }}>
               <div className="widget-box">
                 <div className="widget-title">
                   <span className="icon">
@@ -58,12 +83,13 @@ class ArticleList extends Component {
                   <h5>Article List</h5>
                 </div>
                 <div className="widget-content nopadding">
-                  <ArticleTable articles={articles} perPage={perPage} totalPage={totalPage} handleDelete={this._handleDelete} />
+                  <ArticleTable articles={articles} perPage={perPage} totalPage={totalPage} handleDelete={this._handleOpenConfirm} />
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <Rconfirm style={{display: isShowConfirm ? 'block' : 'none'}} {...confirmProps} />
       </div>
     )
   }
@@ -72,12 +98,14 @@ class ArticleList extends Component {
 ArticleList.propTypes = {
   articles: PropTypes.object.isRequired,
   isFetching: PropTypes.bool.isRequired,
+  isShowConfirm: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired
 }
 
 export default connect(state => ({
-  articles: state.article,
+  articles: state.articles,
   isFetching: state.uiState.isFetching,
+  isShowConfirm: state.uiState.isShowConfirm
 }), dispatch => ({
   actions: bindActionCreators(ArticleActions, dispatch)
 }))(ArticleList)

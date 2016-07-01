@@ -1,7 +1,7 @@
 import * as types from '../constants/actionTypes'
 import { List } from "immutable";
 
-export default function article(state = List(), action) {
+export function articles(state = List(), action) {
   switch (action.type) {
     case types.ARTICLES_CREATED:
       if (state.size > 0) {
@@ -17,6 +17,17 @@ export default function article(state = List(), action) {
     case types.ARTICLES_FETCHED:
       state = List(action.articles);
       return state
+    default:
+      return state
+  }
+}
+
+export function article(state = {}, action) {
+  switch (action.type) {
+    case types.ARTICLE_FETCHED:
+      return Object.assign({}, state, {
+        article: action.article
+      });
     default:
       return state
   }

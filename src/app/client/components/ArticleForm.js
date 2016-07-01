@@ -25,6 +25,11 @@ class ArticleForm extends Component {
   componentWillMount() {
     this.props.initializeForm(this.props.initializeData);
 	}
+  componentWillReceiveProps(nextProps) {
+    if(this.props.initializeData != nextProps.initializeData) {
+      this.props.initializeForm(nextProps.initializeData);
+    }
+  }
   render() {
   	const { fields: { title, category, previewimg, summary, context }, handleSubmit, submitting, isSaving, data } = this.props
   	return (
