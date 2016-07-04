@@ -20,7 +20,8 @@ class ArticleAdd extends Component {
   }
 
   _handleSubmit(data) {
-    // this.props.actions.createArticle(data);
+    data._id = this.props.params.id;
+    this.props.actions.updateArticle(data);
   }
 
   componentWillMount() {

@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes'
-import fetch from 'isomorphic-fetch' 
+import fetch from 'isomorphic-fetch'
 
 export function fetchArticles() {
   return function (dispatch) {
@@ -35,7 +35,7 @@ export function fetchArticle(id) {
   return function (dispatch) {
     dispatch(dataLoading());
 
-    return fetch('/article/' + id, {
+    return fetch('/articles/' + id, {
       credentials: 'include',
       headers: {
         'Accept': 'application/json',
@@ -93,6 +93,38 @@ export function createArticle(article) {
   }
 }
 
+export function updateArticle(article) {
+  return function (dispatch) {
+    dispatch(dataSaving());
+
+    return fetch('/articles/' + article._id, {
+      method: 'PUT',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(article)
+    })
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      if (data.status_code == 200) {
+        try {
+          dispatch(articleUpdated(data.result));
+          dispatch(dataSaved());
+          dispatch(showConfirm());
+        } catch (e) {
+          // dispatch(dataLoadedFailure());
+        }
+      }
+    })
+    .catch(error => {
+      // dispatch(dataLoadedFailure());
+    })
+  }
+}
+
 export function deleteArticle(id) {
   return function (dispatch) {
     dispatch(dataLoading());
@@ -106,7 +138,7 @@ export function deleteArticle(id) {
     .then(data => {
       if (data.status_code == 200) {
         try {
-          dispatch(articlesDeleted(id));
+          dispatch(articleDeleted(id));
           dispatch(dataLoaded());
           dispatch(hideConfirm());
           // dispatch(navigateToArticleList());
@@ -171,23 +203,23 @@ function articlesFetched(articles) {
   }
 }
 
-function articlesCreated(article) {
+function articleCreated(article) {
   return {
-    type: types.ARTICLES_CREATED,
+    type: types.ARTICLE_CREATED,
     article: article
   }
 }
 
-function articlesUpdated(article) {
+function articleUpdated(article) {
   return {
-    type: types.ARTICLES_UPDATED,
+    type: types.ARTICLE_UPDATED,
     article: article
   }
 }
 
-function articlesDeleted(id) {
+function articleDeleted(id) {
   return {
-    type: types.ARTICLES_DELETED,
+    type: types.ARTICLE_DELETED,
     id
   }
 }

@@ -97,6 +97,7 @@ exports.deleteArticle = function(req, res){
 
 exports.updateArticle = function(req, res){
   var articleObj = req.body;
+  var id = articleObj._id;
   var _article;
 
   Article.findById(id, function(err, article){
@@ -107,9 +108,19 @@ exports.updateArticle = function(req, res){
     _article = _.extend(article, articleObj);
     _article.save(function(err, article){
       if(err){
-        console.log(err);
+        res.json({
+          status_code: 500,
+          message: err,
+          result: {}
+        });
+      }else{
+        res.json({
+          status_code: 200,
+          message: 'ok',
+          result: article
+        });
       }
-      // res.json({message: "success", data:{}}});
+
     });
   });
 }
