@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import Paginate from './Paginate';
 
 export default class ArticleTable extends Component {
-  constructor(props) {
+  constructor(props) { 
     super(props);
     this.state = {
       currentPage: 1
