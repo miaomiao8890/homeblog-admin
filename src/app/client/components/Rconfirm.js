@@ -24,10 +24,3 @@ export default class Rconfirm extends Component {
     )
   }
 }
-
-Rconfirm.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  totalPage: PropTypes.number.isRequired,
-  listLength: PropTypes.number.isRequired,
-  _handlePageChange: PropTypes.func.isRequired
-}
