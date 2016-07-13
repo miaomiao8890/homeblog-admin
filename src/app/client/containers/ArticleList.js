@@ -72,7 +72,7 @@ class ArticleList extends Component {
           </div>
           <div className="container-fluid">
             <div className="content-loading" style={{ display: isFetching ? 'block' : 'none' }}>
-              <img src="/images/loading-big.gif" />
+              <div className="loading-img"></div>
             </div>
             <div className="row-fluid" style={{ display: isFetching ? 'none' : 'block' }}>
               <div className="widget-box">

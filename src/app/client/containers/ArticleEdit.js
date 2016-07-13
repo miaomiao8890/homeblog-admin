@@ -62,7 +62,7 @@ class ArticleAdd extends Component {
                 </div>
                 <div className="widget-content nopadding">
                   <div className="content-loading" style={{ display: isFetching ? 'block' : 'none' }}>
-                    <img src="/images/loading-big.gif" />
+                    <div className="loading-img"></div>
                   </div>
                   <div style={{ display: isFetching ? 'none' : 'block' }}>
                     <ArticleForm onSubmit={this._handleSubmit} initializeData={article} isSaving={isSaving} />

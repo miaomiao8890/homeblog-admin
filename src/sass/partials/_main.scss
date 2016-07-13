@@ -63,7 +63,7 @@ button {
   position: relative;
   .login-content {
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     width: 400px;
     margin-left: -200px;
@@ -194,10 +194,12 @@ button {
       a {
         display: block;
         cursor: pointer;
-        img {
+        .logo-img {
           width: 150px;
           height: 30px;
-          display: block;
+          background: url('../images/logo.png') no-repeat;
+          background-size: 150px 30px;
+          -webkit-background-size: 150px 30px;
         }
       }
     }
@@ -251,7 +253,7 @@ button {
           }
           span {
             font-size: 10px;
-            margin-left: 6px;
+            margin-left: 1px;
             text-shadow: none;
           }
         }
@@ -360,11 +362,13 @@ button {
         font-size: 11px;
         color: #666666;
         text-decoration: none;
+        line-height: 21px;
         &:last-child {
           background-image: none;
         }
         i {
           margin-right: 5px;
+          margin-top: 0;
           opacity: .6;
         }
       }
@@ -387,6 +391,12 @@ button {
         img {
           display: inline-block;
         }
+      }
+      .loading-img {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background: url('../images/loading-big.gif') no-repeat;
       }
     }
     .widget-box {

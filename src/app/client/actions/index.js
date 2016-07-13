@@ -79,7 +79,7 @@ export function createArticle(article) {
     .then(data => {
       if (data.status_code == 200) {
         try {
-          dispatch(articlesCreated(data.result));
+          dispatch(articleCreated(data.result));
           dispatch(dataSaved());
           dispatch(showConfirm());
         } catch (e) {
